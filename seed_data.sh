@@ -4,7 +4,7 @@
 # run: chmod +x seed_data.sh
 
 rm db.sqlite3
-rm -rf ./django_template/migrations
+rm -rf ./portfolioapi/migrations
 python3 manage.py migrate
-python3 manage.py makemigrations django_template
-python3 manage.py migrate django_template
+python3 manage.py makemigrations portfolioapi
+python3 manage.py migrate portfolioapi

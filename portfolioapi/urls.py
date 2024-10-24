@@ -1,5 +1,5 @@
 """
-URL configuration for django_template project.
+URL configuration for portfolioapi project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -20,8 +20,8 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
 from django.urls import path
-from django_template.models import *
-from django_template.views import *
+from portfolioapi.models import *
+from portfolioapi.views import *
 
 router = routers.DefaultRouter(trailing_slash=False)
 
