@@ -11,6 +11,7 @@ django-cors-headers = "*"
 pylint-django = "*"
 gunicorn = "*"
 django = "*"
+pillow = "*"
 
 [dev-packages]
 
