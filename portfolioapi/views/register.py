@@ -6,7 +6,6 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-
 @csrf_exempt
 def login_user(request):
     # {
@@ -35,7 +34,6 @@ def login_user(request):
             return HttpResponse(data, content_type='application/json')
 
     return HttpResponseNotAllowed(permitted_methods=['POST'])
-
 
 @csrf_exempt
 def register_user(request):
