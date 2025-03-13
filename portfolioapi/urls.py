@@ -18,13 +18,15 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
-from django.urls import path
+from django.urls import path,include
 from portfolioapi.models import *
 from portfolioapi.views import *
 
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'wikis', WikisViewSet, 'wiki')
 
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
     path('register', register_user),
     path('login', login_user)

@@ -1,0 +1,16 @@
+[
+    {
+        "model": "portfolioapi.topic",
+        "pk": 1,
+        "fields": {
+            "name":"Client Side"
+        }
+    },
+    {
+        "model": "portfolioapi.topic",
+        "pk": 2,
+        "fields": {
+            "name":"Test"
+        }
+    }
+]
