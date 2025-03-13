@@ -1,0 +1,32 @@
+[
+    {
+        "model": "portfolioapi.wiki",
+        "pk": 1,
+        "fields": {
+            "user":1,
+            "topic":1,
+            "title":"Responsive Design",
+            "is_draft":false
+        }
+    },
+    {
+        "model": "portfolioapi.wiki",
+        "pk": 2,
+        "fields": {
+            "user":1,
+            "topic":1,
+            "title":"Test",
+            "is_draft":false
+        }
+    },
+    {
+        "model": "portfolioapi.wiki",
+        "pk": 3,
+        "fields": {
+            "user":1,
+            "topic":2,
+            "title":"Test",
+            "is_draft":false
+        }
+    }
+]
