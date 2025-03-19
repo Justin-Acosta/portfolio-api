@@ -4,7 +4,6 @@ from rest_framework import status
 from rest_framework import serializers
 from portfolioapi.models import Wiki,Topic
 from rest_framework.permissions import AllowAny
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 
 class WikisSerializer(serializers.ModelSerializer):
@@ -18,9 +17,6 @@ class WikisViewSet(ViewSet):
     permission_classes = (AllowAny,)
 
     def retrieve(self,request,pk):
-
-        if not pk:
-            return Response({'error':'PK must be provided or topic ID must be provided in body'},status=status.HTTP_400_BAD_REQUEST)
         
         try:
             wiki = Wiki.objects.get(pk=pk)
@@ -45,7 +41,7 @@ class WikisViewSet(ViewSet):
         
 
         wikis = Wiki.objects.filter(topic=topic)
-        if not wikis.exists():
+        if len(wikis) == 0:
             return Response({'error':'no wiki entries associated this topic'}, status=status.HTTP_404_NOT_FOUND)
 
         serialized_wikis = WikisSerializer(wikis,many=True)

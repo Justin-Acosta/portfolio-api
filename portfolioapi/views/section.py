@@ -6,7 +6,6 @@ from rest_framework import serializers
 from portfolioapi.models import Wiki,Section
 from rest_framework.permissions import AllowAny
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.decorators import login_required
 
 class SectionsSerializer(serializers.ModelSerializer):
 
@@ -27,11 +26,11 @@ class SectionsViewSet(ViewSet):
 
         try:
             wiki=Wiki.objects.get(pk=wiki_id)
-        except:
+        except ObjectDoesNotExist:
             return Response({'error':'wiki entry not found'},status=status.HTTP_404_NOT_FOUND)
 
         sections= Section.objects.filter(wiki=wiki)
-        if not sections.exists():
+        if len(sections) == 0:
             return Response({'error':'no section entries associated this wiki'}, status=status.HTTP_404_NOT_FOUND)
 
         serialized_sections = SectionsSerializer(sections,many=True)
