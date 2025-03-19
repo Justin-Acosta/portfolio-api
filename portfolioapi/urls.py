@@ -25,6 +25,7 @@ from portfolioapi.views import *
 router = routers.DefaultRouter(trailing_slash=True)
 router.register(r'wikis', WikisViewSet, 'wiki')
 router.register(r'sections', SectionsViewSet, 'section')
+router.register(r'topics', TopicsViewSet, 'topic')
 
 urlpatterns = [
     path('', include(router.urls)),
