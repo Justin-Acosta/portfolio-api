@@ -1,4 +1,3 @@
-
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,7 +6,6 @@ from portfolioapi.models import Wiki,Topic
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import JsonResponse
 
 class WikisSerializer(serializers.ModelSerializer):
 
@@ -20,6 +18,9 @@ class WikisViewSet(ViewSet):
     permission_classes = (AllowAny,)
 
     def retrieve(self,request,pk):
+
+        if not pk:
+            return Response({'error':'PK must be provided or topic ID must be provided in body'},status=status.HTTP_400_BAD_REQUEST)
         
         try:
             wiki = Wiki.objects.get(pk=pk)
@@ -32,19 +33,20 @@ class WikisViewSet(ViewSet):
 
     def list(self, request):
 
-        topic_id = request.data.get('topic')
-        
-        if topic_id:
-            try:
-                topic = Topic.objects.get(pk=topic_id)
-                wikis = Wiki.objects.filter(topic=topic)
-            except ObjectDoesNotExist:
-                return Response({'error':'topic entry not found'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            wikis = Wiki.objects.all()
+        topic_id = request.query_params.get('topic')
 
+        if not topic_id:
+            return Response({'error':'PK must be provided or topic ID must be provided as a query param'},status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            topic = Topic.objects.get(pk=topic_id)
+        except ObjectDoesNotExist:
+            return Response({'error':'topic entry not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+
+        wikis = Wiki.objects.filter(topic=topic)
         if not wikis.exists():
-            return Response({'error':'no wiki entries found'}, status=status.HTTP_204_NO_CONTENT)
+            return Response({'error':'no wiki entries associated this topic'}, status=status.HTTP_404_NOT_FOUND)
 
         serialized_wikis = WikisSerializer(wikis,many=True)
         return Response(serialized_wikis.data, status=status.HTTP_200_OK)

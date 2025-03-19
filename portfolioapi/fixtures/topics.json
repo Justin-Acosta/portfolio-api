@@ -12,5 +12,12 @@
         "fields": {
             "name":"Test"
         }
+    },
+    {
+        "model": "portfolioapi.topic",
+        "pk": 3,
+        "fields": {
+            "name":"Test"
+        }
     }
 ]
