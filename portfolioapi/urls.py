@@ -22,8 +22,9 @@ from django.urls import path,include
 from portfolioapi.models import *
 from portfolioapi.views import *
 
-router = routers.DefaultRouter(trailing_slash=False)
+router = routers.DefaultRouter(trailing_slash=True)
 router.register(r'wikis', WikisViewSet, 'wiki')
+router.register(r'sections', SectionsViewSet, 'section')
 
 urlpatterns = [
     path('', include(router.urls)),
